@@ -8,7 +8,7 @@
 #endif //CDATAFRAME_TOM_VALENTINO_PP_FONCTIONS_H
 #include <stdio.h>
 #include <stdlib.h>
-
+#define BLOCK_SIZE 256
 
 // Structure pour représenter une colonne
 typedef struct {

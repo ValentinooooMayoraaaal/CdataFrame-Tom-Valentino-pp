@@ -10,19 +10,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TAILLE_TITRE 50
-#define VALEUR_DEFAUT 0 // Valeur par défaut pour les données manquantes (dans cet exemple, on suppose des entiers)
+#define BLOC 256
 
-// Structure pour une colonne de données
+// Structure pour représenter une colonne
 typedef struct {
-    char titre[TAILLE_TITRE];
+    char *titre;
     int *donnees;
-    int taille;
-} Colonne;
-
-// Structure pour le DataFrame
-typedef struct {
-    Colonne *colonnes;
-    int nb_colonnes;
-    int nb_lignes;
-} CDataframe;
+    size_t taille_physique;
+    size_t taille_logique;  
+} Column;

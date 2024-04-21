@@ -18,4 +18,9 @@ typedef struct {
     size_t taille_logique;
 } Column;
 
+//Prototype fonction qui insert un evaleur dans une colonne
 Column *create_column(char *title);
+
+//Prototype fonction pour free de l'espace pris par unu colonne
+int insert_value(Column *col, int value);
+

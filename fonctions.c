@@ -15,3 +15,7 @@ Column *create_column(char *title) {
     free(col);
     return col;
 }
+
+int insert_value(Column *col, int value) {
+
+}

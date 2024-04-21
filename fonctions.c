@@ -6,12 +6,12 @@
 #include <string.h>
 
 Column *create_column(char *title) {
-    Column *colonne = (colonne*) malloc(sizeof(Column));
+    Column *col = (col*) malloc(sizeof(Column));
 
-    colonne->titre = title;
-    colonne->donnees = NULL; // pointeur sur le tableau
-    colonne->taille_physique = 256;
-    colonne->taille_logique = 0;
-    free(colonne);
-    return colonne;
+    col->titre = title;
+    col->donnees = NULL; // pointeur sur le tableau
+    col->taille_physique = 256;
+    col->taille_logique = 0;
+    free(col);
+    return col;
 }

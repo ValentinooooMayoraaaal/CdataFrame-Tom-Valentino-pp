@@ -3,10 +3,10 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include "fonctions.h"
 
 Column *create_column(char *title) {
-    Column *col = (col*) malloc(sizeof(Column));
+    Column *col = (Column*)malloc(sizeof(Column));
 
     col->titre = title;
     col->donnees = NULL; // pointeur sur le tableau

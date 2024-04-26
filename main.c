@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "fonctions.h"
+#include <string.h>
 int main() {
     Column *mycol = create_column("My column");
     int val = 5;

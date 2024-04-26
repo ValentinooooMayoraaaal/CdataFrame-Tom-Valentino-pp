@@ -3,16 +3,20 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "fonctions.h"
 
 Column *create_column(char *title) {
     Column *col = (Column*)malloc(sizeof(Column));
 
-    col->titre = title;
-    col->donnees = NULL; // pointeur sur le tableau
-    col->taille_physique = 256;
+    // Allocation de mémoire pour le titre et copie du titre
+    col->titre = (char*)malloc(strlen(title) + 1);
+    strcpy(col->titre, title);
+
+    col->donnees = NULL;
+    col->taille_physique = 0;
     col->taille_logique = 0;
-    free(col);
+
     return col;
 }
 

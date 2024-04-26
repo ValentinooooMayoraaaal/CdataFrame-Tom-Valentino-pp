@@ -22,20 +22,13 @@ Column *create_column(char *title) {
 
 int insert_value(Column *colonne, int valeur) {
     // Vérifier si une allocation est nécessaire dans le cas ou la colonne est vide ou pleine
-    if (colonne->taille_physique == 0 || colonne->taille_logique == colonne->taille_physique) {
-        size_t nouvelle_taille = colonne->taille_physique + BLOCK_SIZE;
-        int *nouveau_tableau = realloc(colonne->donnees, nouvelle_taille * sizeof(int));
-        if (nouveau_tableau == NULL) {
-            printf("Erreur lors de la réallocation de mémoire\n");
-            return 0; // 0 pour indiquer une erreur
-        }
-        colonne->donnees = nouveau_tableau;
-        colonne->taille_physique = nouvelle_taille;
+    if (colonne->taille_physique == 0){
+        colonne->donnees = malloc(sizeof(int));
     }
-
-    // Insertion de la valeur
-    colonne->donnees[colonne->taille_logique] = valeur;
-    colonne->taille_logique++;
-
+    else if(colonne->taille_physique !=0){
+        colonne->donnees = realloc(colonne->donnees, colonne->taille_physique * sizeof(int));
+    }
+    colonne->donnees[colonne->taille_physique] = valeur;
+    colonne->taille_physique += 1;
     return 1; //succes de l'insertion de la valeur dans la colonne
 }

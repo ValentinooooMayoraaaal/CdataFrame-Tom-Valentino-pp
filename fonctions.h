@@ -17,11 +17,25 @@ typedef struct {
     int *donnees;
     size_t taille_physique;
     size_t taille_logique;
-} Column;
+} COLUMN;
 
 //Prototype fonction qui insert un evaleur dans une colonne
-Column *create_column(char *title);
+COLUMN *create_column(char *title);
 
 //Prototype fonction pour free de l'espace pris par unu colonne
-int insert_value(Column *col, int value);
+int insert_value(COLUMN *col, int value);
+
+void delete_column(COLUMN **col);
+
+void print_col(COLUMN* col);
+
+int x_occurence(COLUMN* col, int x);
+
+int value_on_x_position(COLUMN* col, int x);
+
+int number_sup_to_x(COLUMN* col, int x);
+
+int number_inf_to_x(COLUMN* col, int x);
+
+int number_equ_to_x(COLUMN* col, int x);
 

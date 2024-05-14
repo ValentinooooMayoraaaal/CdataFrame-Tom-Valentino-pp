@@ -6,3 +6,14 @@
 #include "fonctions.h"
 #include <string.h>
 
+int main(){
+
+    CDataframe *dataframe = create_dataframe();
+
+    remplir_dataframe(dataframe);
+
+    afficher_dataframe(dataframe);
+
+
+    return 0;
+}

@@ -19,6 +19,10 @@ typedef struct {
     size_t taille_logique;
 } COLUMN;
 
+typedef struct {
+    COLUMN **colonnes;
+    int nb_colonnes;
+} CDataframe;
 //Prototype fonction qui insert un evaleur dans une colonne
 COLUMN *create_column(char *title);
 
@@ -38,4 +42,13 @@ int number_sup_to_x(COLUMN* col, int x);
 int number_inf_to_x(COLUMN* col, int x);
 
 int number_equ_to_x(COLUMN* col, int x);
+//---------------------------------------------------------------------------------------------//
 
+
+CDataframe *create_dataframe();
+
+void remplir_dataframe(CDataframe *dataframe);
+
+void remplir_dataframe_en_dur(CDataframe *dataframe);
+
+void afficher_dataframe(CDataframe *dataframe);

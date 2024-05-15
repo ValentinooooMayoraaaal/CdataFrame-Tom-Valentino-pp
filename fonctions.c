@@ -227,3 +227,12 @@ void afficher_dataframe_partiel_colonne(CDataframe *dataframe){
         printf("\n"); // Ligne vide entre les colonnes pour la lisibilité
     }
 }
+void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
+    if (dataframe->nb_colonnes > 0 && ligne != NULL) {
+        for (int i = 0; i < dataframe->nb_colonnes; i++) {
+            insert_value(dataframe->colonnes[i], ligne[i]);
+        }
+    } else {
+        printf("Erreur");
+    }
+}

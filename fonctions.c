@@ -150,7 +150,7 @@ void remplir_dataframe(CDataframe *dataframe) {
 
 void remplir_dataframe_en_dur(CDataframe *dataframe) {
 
-    const char *titres[] = {"Colonne1", "Colonne2", "Colonne3"};
+    char *titres[] = {"Colonne1", "Colonne2", "Colonne3"};
 
     const int donnees[][3] = {
             {10, 20, 30},
@@ -186,15 +186,6 @@ void afficher_dataframe(CDataframe *dataframe) {
         }
 
         printf("\n"); // Ligne vide
-    }
-}
-void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
-    if (dataframe->nb_colonnes > 0 && ligne != NULL) {
-        for (int i = 0; i < dataframe->nb_colonnes; i++) {
-            insert_value(dataframe->colonnes[i], ligne[i]);
-        }
-    } else {
-        printf("Erreur");
     }
 }
 

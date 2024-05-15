@@ -42,6 +42,8 @@ int number_sup_to_x(COLUMN* col, int x);
 int number_inf_to_x(COLUMN* col, int x);
 
 int number_equ_to_x(COLUMN* col, int x);
+
+void supprimer_valeur(CDataframe *dataframe, int indice_colonne, int indice_valeur);
 //---------------------------------------------------------------------------------------------//
 
 

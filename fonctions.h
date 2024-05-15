@@ -62,3 +62,8 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne);
 int print_number_ligne(CDataframe *dataframe);
 
 void occurence_x_in_dataframe(CDataframe *dataframe);
+
+void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe);
+
+void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe);
+

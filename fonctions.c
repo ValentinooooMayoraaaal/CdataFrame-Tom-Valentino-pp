@@ -227,3 +227,10 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
         printf("Erreur");
     }
 }
+
+//4.1
+int print_number_column(CDataframe *dataframe){
+    int number_column;
+    number_column = dataframe->nb_colonnes;
+    printf("Notre dataframe contient %d colonnes", number_column);
+}

@@ -185,6 +185,15 @@ void afficher_dataframe(CDataframe *dataframe) {
             printf("%d\n", dataframe->colonnes[i]->donnees[j]);
         }
 
-        printf("\n"); // Ligne vide entre les colonnes pour la lisibilité
+        printf("\n"); // Ligne vide
+    }
+}
+void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
+    if (dataframe->nb_colonnes > 0 && ligne != NULL) {
+        for (int i = 0; i < dataframe->nb_colonnes; i++) {
+            insert_value(dataframe->colonnes[i], ligne[i]);
+        }
+    } else {
+        printf("Erreur");
     }
 }

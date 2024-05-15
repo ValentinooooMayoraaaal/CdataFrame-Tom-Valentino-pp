@@ -268,3 +268,80 @@ void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre) {
 
     dataframe->nb_colonnes++; // Incrémenter le nombre de colonnes dans le CDataframe
 }
+//4.1
+int print_number_column(CDataframe *dataframe){
+    int number_column;
+    number_column = dataframe->nb_colonnes;
+    printf("Notre dataframe contient %d colonnes", number_column);
+}
+
+int print_number_ligne(CDataframe *dataframe){
+    //je cherche "i" la position de la colonne avec le plus de ligne.
+    int max = 0;
+    int c;
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        if(dataframe->colonnes[i]->taille_logique > max ){
+            max = dataframe->colonnes[i]->taille_logique;
+            c = i;
+        }
+    }
+    //Après connaître "i" la position de la colonne avec le plus de ligne, j'affiche son nombre de ligne
+    int number_ligne;
+    number_ligne = dataframe->colonnes[c]->taille_logique;
+    printf("Notre dataframe contient %d lignes", number_ligne);
+}
+
+void occurence_x_in_dataframe(CDataframe *dataframe) {
+    printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");
+    int x;
+    scanf("%d", &x);
+    int cpt = 0;
+    // Parcours de chaque colonne du CDataframe
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        // Affichage des valeurs de la colonne
+        for (int j = 0; j < dataframe->colonnes[i]->taille_logique; j++) {
+            if(x==dataframe->colonnes[i]->donnees[j] ){
+                cpt++;
+            };
+        }
+        printf("\n"); // Ligne vide
+    }
+    printf("%d apparait %d fois dans le dataframe.", x,cpt);
+}
+
+void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe) {
+    printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");
+    int x;
+    scanf("%d", &x);
+    int cpt = 0;
+    // Parcours de chaque colonne du CDataframe
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        // Affichage des valeurs de la colonne
+        for (int j = 0; j < dataframe->colonnes[i]->taille_logique; j++) {
+            if(x<dataframe->colonnes[i]->donnees[j] ){
+                cpt++;
+            };
+        }
+        printf("\n"); // Ligne vide
+    }
+    printf("Il y a %d valeurs supérieur à %d dans le dataframe.", cpt,x);
+}
+
+void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe) {
+    printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");
+    int x;
+    scanf("%d", &x);
+    int cpt = 0;
+    // Parcours de chaque colonne du CDataframe
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        // Affichage des valeurs de la colonne
+        for (int j = 0; j < dataframe->colonnes[i]->taille_logique; j++) {
+            if(x>dataframe->colonnes[i]->donnees[j] ){
+                cpt++;
+            };
+        }
+        printf("\n"); // Ligne vide
+    }
+    printf("Il y a %d valeurs inférieur à %d dans le dataframe.", cpt,x);
+}
+

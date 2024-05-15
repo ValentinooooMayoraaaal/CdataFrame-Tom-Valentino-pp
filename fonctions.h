@@ -52,3 +52,5 @@ void remplir_dataframe(CDataframe *dataframe);
 void remplir_dataframe_en_dur(CDataframe *dataframe);
 
 void afficher_dataframe(CDataframe *dataframe);
+
+void afficher_dataframe_partiel_ligne(CDataframe *dataframe);

@@ -12,7 +12,7 @@ int main(){
 
     remplir_dataframe(dataframe);
 
-    afficher_dataframe(dataframe);
+    afficher_dataframe_partiel_ligne(dataframe);
 
 
     return 0;

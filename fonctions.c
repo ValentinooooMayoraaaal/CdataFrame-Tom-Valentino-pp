@@ -99,6 +99,27 @@ int number_equ_to_x(COLUMN* col, int x){
     printf("Il y a %d valeurs égales à %d dans la colonne.", cpt,x);
     return cpt;
 }
+void supprimer_valeur(CDataframe *dataframe, int indice_colonne, int indice_valeur) {
+
+    if (indice_colonne < 0 || indice_colonne >= dataframe->nb_colonnes) {
+        printf("Indice de colonne invalide\n");
+        return;
+    }
+
+    COLUMN *colonne = dataframe->colonnes[indice_colonne];
+
+
+    if (indice_valeur < 0 || indice_valeur >= colonne->taille_logique) {
+        printf("Indice de valeur invalide pour la colonne\n");
+        return;
+    }
+
+
+    for (int i = indice_valeur; i < colonne->taille_logique - 1; i++) {
+        colonne->donnees[i] = colonne->donnees[i + 1];
+    }
+    colonne->taille_logique--; // Décrémente la taille logique
+}
 CDataframe *create_dataframe() {
     CDataframe *dataframe = malloc(sizeof(CDataframe));
 

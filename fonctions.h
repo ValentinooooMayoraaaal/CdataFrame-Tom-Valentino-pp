@@ -60,3 +60,5 @@ void afficher_dataframe_partiel_colonne(CDataframe *dataframe);
 void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne);
 
 int print_number_ligne(CDataframe *dataframe);
+
+void occurence_x_in_dataframe(CDataframe *dataframe);

@@ -250,3 +250,21 @@ int print_number_ligne(CDataframe *dataframe){
     number_ligne = dataframe->colonnes[c]->taille_logique;
     printf("Notre dataframe contient %d lignes", number_ligne);
 }
+
+void occurence_x_in_dataframe(CDataframe *dataframe) {
+    printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");
+    int x;
+    scanf("%d", &x);
+    int cpt = 0;
+    // Parcours de chaque colonne du CDataframe
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        // Affichage des valeurs de la colonne
+        for (int j = 0; j < dataframe->colonnes[i]->taille_logique; j++) {
+            if(x==dataframe->colonnes[i]->donnees[j] ){
+                cpt++;
+            };
+        }
+        printf("\n"); // Ligne vide
+    }
+    printf("%d apparait %d fois dans le dataframe.", x,cpt);
+}

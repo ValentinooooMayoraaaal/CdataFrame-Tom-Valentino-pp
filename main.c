@@ -12,7 +12,7 @@ int main(){
 
     remplir_dataframe(dataframe);
 
-    print_number_ligne(dataframe);
+    occurence_x_in_dataframe(dataframe);
 
 
     return 0;

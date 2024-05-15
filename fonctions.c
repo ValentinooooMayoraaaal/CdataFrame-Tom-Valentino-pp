@@ -203,3 +203,18 @@ void afficher_dataframe_partiel_ligne(CDataframe *dataframe){
         printf("\n"); // Ligne vide entre les colonnes pour la lisibilité
     }
 }
+
+void afficher_dataframe_partiel_colonne(CDataframe *dataframe){
+    int taille;
+    printf("Combien de colonne faut-il afficher ? : ");
+    scanf("%d",&taille);
+    for (int i = 0; i < taille; i++) {
+        printf("Colonne \"%s\":\n", dataframe->colonnes[i]->titre);
+        printf("---------\n");
+        // Affichage des valeurs de la colonne
+        for (int j = 0; j < dataframe->colonnes[i]->taille_logique; j++) {
+            printf("%d\n", dataframe->colonnes[i]->donnees[j]);
+        }
+        printf("\n"); // Ligne vide entre les colonnes pour la lisibilité
+    }
+}

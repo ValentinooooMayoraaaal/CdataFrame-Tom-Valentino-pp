@@ -248,3 +248,23 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
         printf("Erreur");
     }
 }
+void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre) {
+    // Vérifier si l'indice de la colonne est valide
+    if (indice_colonne < 0 || indice_colonne > dataframe->nb_colonnes) {
+        printf("Indice de colonne invalide\n");
+        return;
+    }
+
+    // Réallouer de la mémoire pour la nouvelle collonnes
+    dataframe->colonnes = realloc(dataframe->colonnes, (dataframe->nb_colonnes + 1) * sizeof(COLUMN *));
+
+    // Décaler les colonnes suivantes vers la droite
+    for (int i = dataframe->nb_colonnes; i > indice_colonne; i--) {
+        dataframe->colonnes[i] = dataframe->colonnes[i - 1];
+    }
+
+    // Créer une nouvelle colonne avec le titre donné
+    dataframe->colonnes[indice_colonne] = create_column(titre);
+
+    dataframe->nb_colonnes++; // Incrémenter le nombre de colonnes dans le CDataframe
+}

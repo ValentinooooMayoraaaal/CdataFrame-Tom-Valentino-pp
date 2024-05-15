@@ -69,3 +69,5 @@ void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe);
 
 void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe);
 
+void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre);
+

@@ -234,3 +234,19 @@ int print_number_column(CDataframe *dataframe){
     number_column = dataframe->nb_colonnes;
     printf("Notre dataframe contient %d colonnes", number_column);
 }
+
+int print_number_ligne(CDataframe *dataframe){
+    //je cherche "i" la position de la colonne avec le plus de ligne.
+    int max = 0;
+    int c;
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        if(dataframe->colonnes[i]->taille_logique > max ){
+            max = dataframe->colonnes[i]->taille_logique;
+            c = i;
+        }
+    }
+    //Après connaître "i" la position de la colonne avec le plus de ligne, j'affiche son nombre de ligne
+    int number_ligne;
+    number_ligne = dataframe->colonnes[c]->taille_logique;
+    printf("Notre dataframe contient %d lignes", number_ligne);
+}

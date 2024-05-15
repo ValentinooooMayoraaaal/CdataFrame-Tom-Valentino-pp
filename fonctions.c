@@ -124,8 +124,8 @@ void remplir_dataframe(CDataframe *dataframe) {
     for (int i = 0; i < nb_colonnes; i++) {
         printf("Titre de la colonne %d : ", i + 1);
         fgets(titre, sizeof(titre), stdin);
-        titre[strcspn(titre, "\n")] = '\0'; // Supprimer le caractère de nouvelle ligne
-
+        titre[strcspn(titre, "\n")] = '\0'; // Supprime le caractère de nouvelle ligne
+        int cpt = 0;
         // Création d'une nouvelle colonne avec le titre saisi par l'utilisateur
         dataframe->colonnes[i] = create_column(titre);
 
@@ -134,12 +134,15 @@ void remplir_dataframe(CDataframe *dataframe) {
         while (1) {
             printf("Valeur : ");
             scanf("%d", &valeur);
+            cpt++;
             if (valeur == -1) {
                 break; // Terminer la saisie lorsque l'utilisateur entre -1
             }
             insert_value(dataframe->colonnes[i], valeur);
+
         }
-        getchar(); // Consommer le caractère de nouvelle ligne après la saisie de la dernière valeur
+        getchar();// Consommer le caractère de nouvelle ligne après la saisie de la dernière valeur
+        dataframe->colonnes[i]->taille_logique = cpt-1;
     }
 
     dataframe->nb_colonnes = nb_colonnes; // Mettre à jour le nombre de colonnes dans le CDataframe

@@ -12,7 +12,9 @@ int main(){
 
     remplir_dataframe(dataframe);
 
-    afficher_dataframe_partiel_colonne(dataframe);
+    occurence_number_inf_to_x_in_dataframe(dataframe);
+
+    occurence_number_sup_to_x_in_dataframe(dataframe);
 
 
     return 0;

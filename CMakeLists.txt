@@ -5,5 +5,10 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(CdataFrame_Tom_Valentino_pp
                 main.c
-        fonctions.c
-        fonctions.h)
+        cdataframe.h
+        column.c
+        cdataframe.c
+        list.c
+        sort.c
+        list.h
+        sort.h)

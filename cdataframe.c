@@ -4,13 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-<<<<<<< HEAD:cdataframe.c
+
 #include "cdataframe.h"
 #include "column.h"
-=======
+
 #include <stdbool.h>
-#include "fonctions.h"
->>>>>>> recup
+
 
 CDataframe *create_dataframe() {
     CDataframe *dataframe = malloc(sizeof(CDataframe));
@@ -141,8 +140,8 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
     }
 }
 
-<<<<<<< HEAD:cdataframe.c
-=======
+
+
 COLUMN *colonne_taille_max(CDataframe *dataframe) {
     if (dataframe->nb_colonnes == 0) {
         printf("Le CDataframe est vide\n");
@@ -159,7 +158,7 @@ COLUMN *colonne_taille_max(CDataframe *dataframe) {
     return colonne_max;
 }
 
->>>>>>> recup
+
 void supprimer_ligne(CDataframe *dataframe, int indice_ligne) {
     // Vérifier si l'indice de la ligne est valide
     // et si l'indice de la ligne est valide pour la colonne ayant la taille logique maximale
@@ -230,11 +229,9 @@ void renommer_colonne(CDataframe *dataframe, int indice_colonne, char *nouveau_t
 
     // Alloue de la mémoire pour le nouveau titre et le copie
     dataframe->colonnes[indice_colonne]->titre = strdup(nouveau_titre); //stdrup() est une fonction qui crée une cpine de la chaine entré en argument
-<<<<<<< HEAD:cdataframe.c
+
 }
-=======
-    }
->>>>>>> recup
+
 
 bool check_value_existing(CDataframe *dataframe, int valeur) {
     // Parcoure toutes les colonnes du CDataframe

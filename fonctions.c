@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "fonctions.h"
 
 COLUMN *create_column(char *title) {
@@ -248,6 +249,42 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
         printf("Erreur");
     }
 }
+
+COLUMN *colonne_taille_max(CDataframe *dataframe) {
+    if (dataframe->nb_colonnes == 0) {
+        printf("Le CDataframe est vide\n");
+        return NULL;
+    }
+
+    COLUMN *colonne_max = dataframe->colonnes[0];
+
+    for (int i = 1; i < dataframe->nb_colonnes; i++) {
+        if (dataframe->colonnes[i]->taille_logique > colonne_max->taille_logique) {
+            colonne_max = dataframe->colonnes[i];
+        }
+    }
+    return colonne_max;
+}
+
+void supprimer_ligne(CDataframe *dataframe, int indice_ligne) {
+    // Vérifier si l'indice de la ligne est valide
+    // et si l'indice de la ligne est valide pour la colonne ayant la taille logique maximale
+    if (indice_ligne < 0 || indice_ligne >= colonne_taille_max(dataframe)->taille_logique) {
+        fprintf(stderr, "Indice de ligne invalide\n");
+        return;
+    }
+
+    // Parcourir toutes les colonnes du CDataframe et supprimer la valeur à l'indice donné
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        supprimer_valeur(dataframe, i, indice_ligne);
+    }
+
+    // Parcourir toutes les colonnes du CDataframe
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        // Supprimer la valeur à l'indice donné dans la colonne i
+        supprimer_valeur(dataframe, i, indice_ligne);
+    }
+}
 void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre) {
     // Vérifier si l'indice de la colonne est valide
     if (indice_colonne < 0 || indice_colonne > dataframe->nb_colonnes) {
@@ -268,6 +305,81 @@ void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre) {
 
     dataframe->nb_colonnes++; // Incrémenter le nombre de colonnes dans le CDataframe
 }
+void supprime_colonne_du_dataframe(CDataframe *dataframe, int indice_colonne) {
+    // Vérifier si l'indice de la colonne est valide
+    if (indice_colonne < 0 || indice_colonne >= dataframe->nb_colonnes) {
+        printf("Indice de colonne invalide\n");
+        return;
+    }
+
+    // Libére la mémoire de la colonne à supprimer
+    delete_column(&(dataframe->colonnes[indice_colonne]));
+
+    // Décale toutes les colonnes suivantes vers la gauche
+    for (int i = indice_colonne; i < dataframe->nb_colonnes - 1; i++) {
+        dataframe->colonnes[i] = dataframe->colonnes[i + 1];
+    }
+
+    // Ici, on réalloue une taille plus petite dans colonnes
+    dataframe->colonnes = realloc(dataframe->colonnes, (dataframe->nb_colonnes - 1) * sizeof(COLUMN *));
+    dataframe->nb_colonnes--; // Ceci décrémente le nombre de colonnes dans le CDataframe
+}
+void renommer_colonne(CDataframe *dataframe, int indice_colonne, char *nouveau_titre) {
+    // Vérifie si l'indice de la colonne est valide
+    if (indice_colonne < 0 || indice_colonne >= dataframe->nb_colonnes) {
+        printf("Indice de colonne invalide\n");
+        return;
+    }
+
+    // Libére la mémoire de l'ancien titre de la colonne
+    free(dataframe->colonnes[indice_colonne]->titre);
+
+    // Alloue de la mémoire pour le nouveau titre et le copie
+    dataframe->colonnes[indice_colonne]->titre = strdup(nouveau_titre); //stdrup() est une fonction qui crée une cpine de la chaine entré en argument
+    }
+
+bool check_value_existing(CDataframe *dataframe, int valeur) {
+    // Parcoure toutes les colonnes du CDataframe
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        COLUMN *colonne = dataframe->colonnes[i];
+        // Parcoure toutes les valeurs de la colonne
+        for (int j = 0; j < colonne->taille_logique; j++) {
+            // Vérifie si la valeur existe dans la colonne
+            if (colonne->donnees[j] == valeur) {
+                return true; // Vraie si la valeur existe
+            }
+        }
+    }
+    return false; // Sinon renvoit faux
+}
+
+void modifier_valeur_cellule(CDataframe *dataframe, int indice_ligne, int indice_colonne, int nouvelle_valeur) {
+    if (indice_ligne < 0) {
+        printf("Indice de ligne invalide\n");
+        return;
+    }
+
+    if (indice_colonne < 0 || indice_colonne >= dataframe->nb_colonnes) {
+        printf("Indice de colonne invalide\n");
+        return;
+    }
+    //On crée un pointeur sur une colonne et on le fait pointer sur la colonne à l'indice donné
+    COLUMN *colonne = dataframe->colonnes[indice_colonne];
+    if (indice_ligne < 0 || indice_ligne >= colonne->taille_logique) {
+        printf("Indice de ligne invalide pour la colonne\n");
+        return;
+    }
+
+    // Remplace la valeur
+    colonne->donnees[indice_ligne] = nouvelle_valeur;
+}
+
+void afficher_noms_colonnes(CDataframe *dataframe) {
+    printf("Noms des colonnes :\n");
+    for (int i = 0; i < dataframe->nb_colonnes; i++) {
+        printf("Colonne numéro %d: %s\n", i + 1, dataframe->colonnes[i]->titre);
+    }
+}
 //4.1
 int print_number_column(CDataframe *dataframe){
     int number_column;
@@ -275,20 +387,16 @@ int print_number_column(CDataframe *dataframe){
     printf("Notre dataframe contient %d colonnes", number_column);
 }
 
-int print_number_ligne(CDataframe *dataframe){
-    //je cherche "i" la position de la colonne avec le plus de ligne.
-    int max = 0;
-    int c;
-    for (int i = 0; i < dataframe->nb_colonnes; i++) {
-        if(dataframe->colonnes[i]->taille_logique > max ){
-            max = dataframe->colonnes[i]->taille_logique;
-            c = i;
-        }
+int nombre_lignes(CDataframe *dataframe) {
+    COLUMN *colonne_max = colonne_taille_max(dataframe); // Obtenir la colonne avec la taille logique maximale
+
+    if (colonne_max == NULL) {
+        printf("Le CDataframe est vide\n");
+        return 0;
     }
-    //Après connaître "i" la position de la colonne avec le plus de ligne, j'affiche son nombre de ligne
-    int number_ligne;
-    number_ligne = dataframe->colonnes[c]->taille_logique;
-    printf("Notre dataframe contient %d lignes", number_ligne);
+
+    // Retourner la taille logique de la colonne avec la taille maximale
+    return colonne_max->taille_logique;
 }
 
 void occurence_x_in_dataframe(CDataframe *dataframe) {

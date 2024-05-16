@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #define BLOCK_SIZE 256
 
 // Structure pour représenter une colonne
@@ -61,7 +62,23 @@ void afficher_dataframe_partiel_colonne(CDataframe *dataframe);
 
 void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne);
 
+void supprimer_ligne(CDataframe *dataframe, int indice_ligne);
+
+void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre);
+
+void supprime_colonne_du_dataframe(CDataframe *dataframe, int indice_colonne);
+
+void renommer_colonne(CDataframe *dataframe, int indice_colonne, char *nouveau_titre);
+
+bool check_value_existing(CDataframe *dataframe, int valeur);
+
+void modifier_valeur_cellule(CDataframe *dataframe, int indice_ligne, int indice_colonne, int nouvelle_valeur);
+
+void afficher_noms_colonnes(CDataframe *dataframe);
+
 int print_number_ligne(CDataframe *dataframe);
+
+COLUMN *colonne_taille_max(CDataframe *dataframe);//Fonction pas demandé mais utile pour print_number_ligne() et supprimer_ligne()
 
 void occurence_x_in_dataframe(CDataframe *dataframe);
 
@@ -69,5 +86,4 @@ void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe);
 
 void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe);
 
-void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre);
 

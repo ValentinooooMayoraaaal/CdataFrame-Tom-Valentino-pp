@@ -3,7 +3,10 @@
 //
 #include <stdio.h>
 #include <stdlib.h>
-#include "fonctions.h"
+#include "sort.h"
+#include "cdataframe.h"
+#include "column.h"
+#include "list.h"
 #include <stdbool.h>
 #include <string.h>
 

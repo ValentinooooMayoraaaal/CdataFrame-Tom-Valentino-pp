@@ -142,23 +142,6 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
 
 
 
-COLUMN *colonne_taille_max(CDataframe *dataframe) {
-    if (dataframe->nb_colonnes == 0) {
-        printf("Le CDataframe est vide\n");
-        return NULL;
-    }
-
-    COLUMN *colonne_max = dataframe->colonnes[0];
-
-    for (int i = 1; i < dataframe->nb_colonnes; i++) {
-        if (dataframe->colonnes[i]->taille_logique > colonne_max->taille_logique) {
-            colonne_max = dataframe->colonnes[i];
-        }
-    }
-    return colonne_max;
-}
-
-
 void supprimer_ligne(CDataframe *dataframe, int indice_ligne) {
     // Vérifier si l'indice de la ligne est valide
     // et si l'indice de la ligne est valide pour la colonne ayant la taille logique maximale

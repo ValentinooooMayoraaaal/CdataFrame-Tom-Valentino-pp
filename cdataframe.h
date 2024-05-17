@@ -13,19 +13,8 @@
 #include <string.h>
 #include <stdbool.h>
 #define BLOCK_SIZE 256
-
+#include "column.h"
 // Structure pour représenter une colonne
-typedef struct {
-    char *titre;
-    int *donnees;
-    size_t taille_physique;
-    size_t taille_logique;
-} COLUMN;
-
-typedef struct {
-    COLUMN **colonnes;
-    int nb_colonnes;
-} CDataframe;
 
 
 CDataframe *create_dataframe();

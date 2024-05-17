@@ -17,12 +17,18 @@ typedef struct {
     int *donnees;
     size_t taille_physique;
     size_t taille_logique;
+    unsigned long long *index;
+    int valid_index;
+    unsigned int index_size;
+    int sort_dir;
 } COLUMN;
 
 typedef struct {
     COLUMN **colonnes;
     int nb_colonnes;
+
 } CDataframe;
+
 
 COLUMN *create_column(char *title);
 
@@ -45,4 +51,10 @@ int number_equ_to_x(COLUMN* col, int x);
 void supprimer_valeur(CDataframe *dataframe, int indice_colonne, int indice_valeur);
 
 COLUMN *colonne_taille_max(CDataframe *dataframe);
+
+void sort(COLUMN* col, int sort_dir);
+
+int Partition(COLUMN *col, int gauche, int droite);
+
+void Quicksort(COLUMN *col, int gauche, int droite);
 #endif //CDATAFRAME_TOM_VALENTINO_PP_COLUMN_H

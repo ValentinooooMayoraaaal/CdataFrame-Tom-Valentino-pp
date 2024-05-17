@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "column.h"
+#include "cdataframe.h"
 
 COLUMN *create_column(char *title) {
     COLUMN *col = (COLUMN*)malloc(sizeof(COLUMN));
@@ -17,6 +18,10 @@ COLUMN *create_column(char *title) {
     col->donnees = NULL;
     col->taille_physique = 0;
     col->taille_logique = 0;
+    col->index = 0;
+    col->valid_index = 0;
+    col->index_size = 0;
+    col->sort_dir = 0;
 
     return col;
 }
@@ -136,4 +141,52 @@ COLUMN *colonne_taille_max(CDataframe *dataframe) {
         }
     }
     return colonne_max;
+}
+
+void sort(COLUMN* col, int sort_dir) {
+    if (col->valid_index == 0) {
+        //Algorithme Quicksort à mettre
+
+
+        }
+    if (col->valid_index == -1) {
+        //Algorithme de tri par insertion
+        for (int i = 2; i <= (col->taille_logique); i++) {
+            int k = (col->donnees[i]);
+            int j = i - 1;
+            while (j > 0 && col->donnees[j] > k) {
+                col->donnees[j + 1] = col->donnees[j];
+                j = j - 1;
+            }
+            col->donnees[j + 1] = k;
+        }
+
+    }
+
+Partition(COLUMN *col, int gauche, int droite){
+        int pivot = (col->donnees[droite]);
+        i = gauche - 1;
+        for (int j = gauche; j <= droite - 1; j++) {
+            if (col->donnees[j] <= pivot) {
+                i = i + 1;
+                int c = col->donnees[i];
+                (col->donnees[i]) = (col->donnees[j]);
+                col->donnees[j] = c;
+            }
+        }
+        int c = col->donnees[i + 1];
+        (col->donnees[i]) = (col->donnees[droite]);
+        col->donnees[droite] = c;
+        return i + 1;
+    }
+
+Quicksort(COLUMN *col, int gauche, int droite) {
+        if (gauche < droite) {
+            int pi = Partition(col, gauche, droite);
+            Quicksort(col, gauche, pi - 1);
+            Quicksort(col, pi + 1, droite);
+        }
+    }
+
+
 }

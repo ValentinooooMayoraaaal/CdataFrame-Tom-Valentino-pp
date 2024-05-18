@@ -20,11 +20,12 @@ int main(){
     CDataframe *dataframe = create_dataframe();
 
     remplir_dataframe(dataframe);
-    print_index(dataframe->colonnes[0]);
-    sort(dataframe->colonnes[0], 0);
 
-    afficher_dataframe(dataframe);
     print_index(dataframe->colonnes[0]);
+    sort(dataframe->colonnes[0],1);
+    print_index(dataframe->colonnes[0]);
+    afficher_dataframe(dataframe);
+
 
     return 0;
 }

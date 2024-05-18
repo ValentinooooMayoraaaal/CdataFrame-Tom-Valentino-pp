@@ -19,7 +19,7 @@ COLUMN *create_column(char *title) {
     col->taille_physique = 0;
     col->taille_logique = 0;
     col->index = NULL;
-    col->valid_index = -1;
+    col->valid_index = 0;
     col->index_size = 0;
     col->sort_dir = 0;
 
@@ -153,7 +153,7 @@ COLUMN *colonne_taille_max(CDataframe *dataframe) {
 //Sort trie différement en fonction de la situation.
 // Il existe 4 situations possibles.
 // Si sort_dir = 1 est saisie, tri décroissant. Si sort_dir = 0, tri croissant.
-// Si valid_index = -1, on exécute le tri d'insertion et si valid_index =0, on éxecute le quickshort.
+// Si valid_index = -1, on exécute le tri d'insertion et si valid_index =0, on éxecute le quicksort.
 // Il y a donc quatre situation : croissant quickshort, croissant insertion, décroissant quickshort, décroissant insertion.
 //Les quatre fonctionnent ;)
 //Pour le réaliser, j'ai codé le pseudo-code du CM.
@@ -226,14 +226,14 @@ int Partition_decroissant(COLUMN *col, int gauche, int droite) {
     for (int j = gauche; j <= droite - 1; j++) {
         if (col->donnees[j] >= pivot) {
             i++;
-            int c = col->index[i];
-            col->index[i] = col->index[j];
-            col->index[j] = c;
+            int c = col->donnees[i];
+            col->donnees[i] = col->donnees[j];
+            col->donnees[j] = c;
         }
     }
     int c = col->index[i + 1];
-    col->index[i + 1] = col->index[droite];
-    col->index[droite] = c;
+    col->donnees[i + 1] = col->donnees[droite];
+    col->donnees[droite] = c;
     return i + 1;
     return i + 1;
 }

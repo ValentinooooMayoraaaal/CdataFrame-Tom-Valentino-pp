@@ -231,7 +231,7 @@ int Partition_decroissant(COLUMN *col, int gauche, int droite) {
             col->donnees[j] = c;
         }
     }
-    int c = col->index[i + 1];
+    int c = col->donnees[i + 1];
     col->donnees[i + 1] = col->donnees[droite];
     col->donnees[droite] = c;
     return i + 1;

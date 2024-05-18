@@ -148,7 +148,7 @@ void sort(COLUMN* col, int sort_dir) {
         //Algorithme Quicksort à mettre
 
 
-        }
+    }
     if (col->valid_index == -1) {
         //Algorithme de tri par insertion
         for (int i = 2; i <= (col->taille_logique); i++) {
@@ -162,10 +162,11 @@ void sort(COLUMN* col, int sort_dir) {
         }
 
     }
+}
 
-Partition(COLUMN *col, int gauche, int droite){
+int Partition(COLUMN *col, int gauche, int droite){
         int pivot = (col->donnees[droite]);
-        i = gauche - 1;
+        int i = gauche - 1;
         for (int j = gauche; j <= droite - 1; j++) {
             if (col->donnees[j] <= pivot) {
                 i = i + 1;
@@ -180,7 +181,8 @@ Partition(COLUMN *col, int gauche, int droite){
         return i + 1;
     }
 
-Quicksort(COLUMN *col, int gauche, int droite) {
+
+void Quicksort(COLUMN *col, int gauche, int droite){
         if (gauche < droite) {
             int pi = Partition(col, gauche, droite);
             Quicksort(col, gauche, pi - 1);
@@ -188,5 +190,3 @@ Quicksort(COLUMN *col, int gauche, int droite) {
         }
     }
 
-
-}

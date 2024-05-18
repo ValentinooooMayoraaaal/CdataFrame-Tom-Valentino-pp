@@ -18,7 +18,7 @@ COLUMN *create_column(char *title) {
     col->donnees = NULL;
     col->taille_physique = 0;
     col->taille_logique = 0;
-    col->index = 0;
+    col->index = NULL;
     col->valid_index = -1;
     col->index_size = 0;
     col->sort_dir = 0;
@@ -30,13 +30,16 @@ int insert_value(COLUMN *colonne, int valeur) {
     // Vérifier si une allocation est nécessaire dans le cas ou la colonne est vide ou pleine
     if(colonne->taille_physique == 0){
         colonne->donnees = malloc(sizeof(int));
+        colonne->index = malloc(sizeof(int));
     }
     else if(colonne->taille_physique !=0){
         colonne->donnees = realloc(colonne->donnees, colonne->taille_physique * sizeof(int));
+        colonne->index = realloc(colonne->index, colonne->taille_physique * sizeof(int));
     }
     colonne->donnees[colonne->taille_physique] = valeur;
+    colonne->index[colonne->taille_physique] = colonne->taille_physique;
     colonne->taille_physique += 1;
-    if(colonne->valid_index = 1){
+    if(colonne->valid_index == 1){
         colonne->valid_index = -1;
     }
     return 1; //succes de l'insertion de la valeur dans la colonne
@@ -157,39 +160,42 @@ COLUMN *colonne_taille_max(CDataframe *dataframe) {
 // Chatgpt m'a été utile pour comprendre ce que signifiait "gauche" et "droite" indices de Quickshort et pouvoir comprendre que gauche = 0 etc.
 
 void sort(COLUMN* col, int sort_dir) {
-    if(sort_dir = 0){
+    if(sort_dir == 0){
         if (col->valid_index == 0) {
-            printf("%d", col->valid_index);
+            printf("check");
+            printf("algorithme quicksort croissant \n");
             // Algorithme Quicksort
-            Quicksort(col, 0, col->taille_logique - 1);
+            Quicksort_croissant(col, 0, col->taille_logique - 1);
         } else if (col->valid_index == -1) {
             // Algorithme de tri par insertion
+            printf("algorithme insertion croissant \n");
             for (int i = 1; i < col->taille_logique; i++) {
-                int k = col->donnees[i];
+                int k = col->index[i];
                 int j = i - 1;
                 while (j >= 0 && col->donnees[j] > k) {
-                    col->donnees[j + 1] = col->donnees[j];
+                    col->index[j + 1] = col->index[j];
                     j--;
                 }
-                col->donnees[j + 1] = k;
+                col->index[j + 1] = k;
             }
         }
     }
-    else if(sort_dir = 1){
+    else if(sort_dir == 1){
         if (col->valid_index == 0) {
-            printf("%d", col->valid_index);
+            printf("algorithme quicksort décroissant \n");
             // Algorithme Quicksort
-            Quicksort(col, 0, col->taille_logique - 1);
+            Quicksort_decroissant(col, 0, col->taille_logique - 1);
         } else if (col->valid_index == -1) {
             // Algorithme de tri par insertion
+            printf("algorithme insertion décroissant \n");
             for (int i = 1; i < col->taille_logique; i++) {
-                int k = col->donnees[i];
+                int k = col->index[i];
                 int j = i - 1;
-                while (j >= 0 && col->donnees[j] < k) {
-                    col->donnees[j + 1] = col->donnees[j];
+                while (j >= 0 && col->donnees[j] > k) {
+                    col->index[j + 1] = col->index[j];
                     j--;
                 }
-                col->donnees[j + 1] = k;
+                col->index[j + 1] = k;
             }
         }
     }
@@ -197,11 +203,11 @@ void sort(COLUMN* col, int sort_dir) {
 }
 
 // Fonction de partition pour Quicksort
-int Partition(COLUMN *col, int gauche, int droite) {
+int Partition_croissant(COLUMN *col, int gauche, int droite) {
     int pivot = col->donnees[droite];
     int i = gauche - 1;
     for (int j = gauche; j <= droite - 1; j++) {
-        if (col->donnees[j] >= pivot) {
+        if (col->donnees[j] <= pivot) {
             i++;
             int c = col->donnees[i];
             col->donnees[i] = col->donnees[j];
@@ -214,12 +220,43 @@ int Partition(COLUMN *col, int gauche, int droite) {
     return i + 1;
 }
 
+int Partition_decroissant(COLUMN *col, int gauche, int droite) {
+    int pivot = col->donnees[droite];
+    int i = gauche - 1;
+    for (int j = gauche; j <= droite - 1; j++) {
+        if (col->donnees[j] >= pivot) {
+            i++;
+            int c = col->index[i];
+            col->index[i] = col->index[j];
+            col->index[j] = c;
+        }
+    }
+    int c = col->index[i + 1];
+    col->index[i + 1] = col->index[droite];
+    col->index[droite] = c;
+    return i + 1;
+    return i + 1;
+}
 
-void Quicksort(COLUMN *col, int gauche, int droite) {
+void Quicksort_croissant(COLUMN *col, int gauche, int droite) {
     if (gauche < droite) {
-        int pi = Partition(col, gauche, droite);
-        Quicksort(col, gauche, pi - 1);
-        Quicksort(col, pi + 1, droite);
+        int pi = Partition_croissant(col, gauche, droite);
+        Quicksort_croissant(col, gauche, pi - 1);
+        Quicksort_croissant(col, pi + 1, droite);
     }
 }
 
+
+void Quicksort_decroissant(COLUMN *col, int gauche, int droite) {
+    if (gauche < droite) {
+        int pi = Partition_decroissant(col, gauche, droite);
+        Quicksort_decroissant(col, gauche, pi - 1);
+        Quicksort_decroissant(col, pi + 1, droite);
+    }
+}
+void print_index(COLUMN* col){
+        for(int i=0; i < col->taille_logique; i++){
+            printf("[%d] %d",i,col->index[i]);
+            printf("\n");
+        }
+}

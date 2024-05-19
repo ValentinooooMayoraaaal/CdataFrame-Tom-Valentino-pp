@@ -19,7 +19,7 @@ COLUMN *create_column(char *title) {
     col->taille_physique = 0;
     col->taille_logique = 0;
     col->index = NULL;
-    col->valid_index = 0;
+    col->valid_index = -1;
     col->index_size = 0;
     col->sort_dir = 0;
 
@@ -149,20 +149,3 @@ COLUMN *colonne_taille_max(CDataframe *dataframe) {
     return colonne_max;
 }
 
-//Sort est une fonction de tri qui fonctionne grâce à deux autres fonction : Quickshort, elle-même qui se sert de Partition.
-//Sort trie différement en fonction de la situation.
-// Il existe 4 situations possibles.
-// Si sort_dir = 1 est saisie, tri décroissant. Si sort_dir = 0, tri croissant.
-// Si valid_index = -1, on exécute le tri d'insertion et si valid_index =0, on éxecute le quicksort.
-// Il y a donc quatre situation : croissant quickshort, croissant insertion, décroissant quickshort, décroissant insertion.
-//Les quatre fonctionnent ;)
-//Pour le réaliser, j'ai codé le pseudo-code du CM.
-// Chatgpt m'a été utile pour comprendre ce que signifiait "gauche" et "droite" indices de Quickshort et pouvoir comprendre que gauche = 0 etc.
-
-
-void print_index(COLUMN* col){
-        for(int i=0; i < col->taille_logique; i++){
-            printf("[%d] %d",i,col->index[i]);
-            printf("\n");
-        }
-}

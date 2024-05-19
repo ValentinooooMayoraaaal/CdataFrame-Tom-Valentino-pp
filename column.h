@@ -52,16 +52,4 @@ void supprimer_valeur(CDataframe *dataframe, int indice_colonne, int indice_vale
 
 COLUMN *colonne_taille_max(CDataframe *dataframe);
 
-void sort(COLUMN* col, int sort_dir);
-
-int Partition_croissant(COLUMN *col, int gauche, int droite);
-
-int Partition_decroissant(COLUMN *col, int gauche, int droite);
-
-void Quicksort_croissant(COLUMN *col, int gauche, int droite);
-
-void Quicksort_decroissant(COLUMN *col, int gauche, int droite);
-
-        void print_index(COLUMN* col);
-
 #endif //CDATAFRAME_TOM_VALENTINO_PP_COLUMN_H

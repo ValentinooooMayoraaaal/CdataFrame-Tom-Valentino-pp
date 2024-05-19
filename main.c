@@ -23,7 +23,8 @@ int main(){
     remplir_dataframe(dataframe);
 
     print_index(dataframe->colonnes[0]);
-    sort(dataframe->colonnes[0],1);
+
+    sort(dataframe->colonnes[0],0);
     print_index(dataframe->colonnes[0]);
     afficher_dataframe(dataframe);
 

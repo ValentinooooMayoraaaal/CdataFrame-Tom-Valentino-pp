@@ -19,7 +19,7 @@ COLUMN *create_column(char *title) {
     col->taille_physique = 0;
     col->taille_logique = 0;
     col->index = NULL;
-    col->valid_index = -1;
+    col->valid_index = 0;
     col->index_size = 0;
     col->sort_dir = 0;
 

@@ -8,7 +8,9 @@
 #include "cdataframe.h"
 #include "column.h"
 #include "sort.h"
-#include "cdataframe.h"
+
+//Ce fichier sort.c est composé de toutes les fonctions nécessaires au tri d'une colonne. Elle a été réalisée par Tom Boyer et
+//Valentino Mayoral.
 
 //Sort est une fonction de tri qui fonctionne grâce à deux autres fonction : Quickshort, elle-même qui se sert de Partition.
 //Sort trie différement en fonction de la situation.
@@ -18,8 +20,6 @@
 // Il y a donc quatre situation : croissant quickshort, croissant insertion, décroissant quickshort, décroissant insertion.
 //Les quatre fonctionnent ;)
 //Pour le réaliser, j'ai codé le pseudo-code du CM.
-// Chatgpt m'a été utile pour comprendre ce que signifiait "gauche" et "droite" indices de Quickshort et pouvoir comprendre que gauche = 0 etc.
-
 void sort(COLUMN* col, int sort_dir) {
     if (sort_dir == 0) {
         if (col->valid_index == 0) {
@@ -62,7 +62,8 @@ void sort(COLUMN* col, int sort_dir) {
     col->valid_index=1;
 }
 
-// Fonction de partition pour Quicksort
+// Fonction de partition pour Quicksort croissant qui prend en paramètre une colonne et deux bornes gauche et droite.
+//Elle retourne une valeur i+1 utile dans le tri quicksort.
 int Partition_croissant(COLUMN *col, int gauche, int droite) {
     int pivot = col->donnees[col->index[droite]];
     int i = gauche - 1;
@@ -81,7 +82,8 @@ int Partition_croissant(COLUMN *col, int gauche, int droite) {
 
     return i + 1;
 }
-
+// Fonction de partition pour Quicksort décroissant qui prend en paramètre une colonne et deux bornes gauche et droite.
+//Elle retourne une valeur i+1 utile dans le tri quicksort.
 int Partition_decroissant(COLUMN *col, int gauche, int droite) {
     int pivot = col->donnees[col->index[droite]];
     int i = gauche - 1;
@@ -100,7 +102,8 @@ int Partition_decroissant(COLUMN *col, int gauche, int droite) {
 
     return i + 1;
 }
-
+// Fonction Quicksort croissant qui prend en paramètre une colonne et deux bornes gauche et droite.
+//Elle retourne rien.
 void Quicksort_croissant(COLUMN *col, int gauche, int droite) {
     if (gauche < droite) {
         int pi = Partition_croissant(col, gauche, droite);
@@ -109,7 +112,8 @@ void Quicksort_croissant(COLUMN *col, int gauche, int droite) {
     }
 }
 
-
+// Fonction Quicksort décroissant qui prend en paramètre une colonne et deux bornes gauche et droite.
+//Elle retourne rien.
 void Quicksort_decroissant(COLUMN *col, int gauche, int droite) {
     if (gauche < droite) {
         int pi = Partition_decroissant(col, gauche, droite);
@@ -117,7 +121,8 @@ void Quicksort_decroissant(COLUMN *col, int gauche, int droite) {
         Quicksort_decroissant(col, pi + 1, droite);
     }
 }
-
+//fonction supplémentaire qui permet d'afficher la colonne d'index provenant d'une colonne donnée en paramètre. Elle ne
+//retourne rien.
 void print_index(COLUMN* col){
     for(int i=0; i < col->taille_logique; i++){
         printf("[%d] %d\n",i,col->index[i]);

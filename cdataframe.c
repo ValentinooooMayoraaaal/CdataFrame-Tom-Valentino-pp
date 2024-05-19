@@ -10,6 +10,12 @@
 
 #include <stdbool.h>
 
+//Ce fichier cdataframe.c est composé de toutes les fonctions qui touchent à l'utilisation du dataframe.
+// Elle a été réalisée par Tom Boyer et Valentino Mayoral.
+
+
+//Fonction sans paramètre qui sert à créer un dataframe. On lui donne de l'espace dans la mémoire et on le définie avec
+// des composantes en dur. Elle retourne le dataframe en question.
 
 CDataframe *create_dataframe() {
     CDataframe *dataframe = malloc(sizeof(CDataframe));
@@ -19,7 +25,8 @@ CDataframe *create_dataframe() {
 
     return dataframe;
 }
-
+//Une fonction qui sert à remplir un dataframe mis en paramètre. Le dataframe est un paramètre modifié qui à la fin de la
+// fonction aura été modifié. Elle ne retourne rien.
 void remplir_dataframe(CDataframe *dataframe) {
     char titre[100]; // Chaine de caractère pour le titre de la colonne
     int valeur;      // Variable pour les valeurs stocker dans chaque colonne
@@ -41,7 +48,7 @@ void remplir_dataframe(CDataframe *dataframe) {
         // Création d'une nouvelle colonne avec le titre saisi par l'utilisateur
         dataframe->colonnes[i] = create_column(titre);
 
-        // Saisie des valeurs pour la colonne
+        // Saisie des valeurs pour la colonne.
         printf("Saisissez les valeurs pour la colonne %s (entrez -1 pour terminer) :\n", titre);
         while (1) {
             printf("Valeur : ");
@@ -59,7 +66,7 @@ void remplir_dataframe(CDataframe *dataframe) {
 
     dataframe->nb_colonnes = nb_colonnes; // Mettre à jour le nombre de colonnes dans le CDataframe
 }
-
+//Cette fonction permet de remplir un dataframe mis en paramètre, en dur. Elle ne retourne rien.
 void remplir_dataframe_en_dur(CDataframe *dataframe) {
 
     char *titres[] = {"Colonne1", "Colonne2", "Colonne3"};
@@ -85,7 +92,7 @@ void remplir_dataframe_en_dur(CDataframe *dataframe) {
 
     dataframe->nb_colonnes = nb_colonnes; // Mats à jour le nombre de colonnes dans le CDataframe
 }
-
+//Cette fonction sert d'affichage des cellules d'un dataframe mis en paramètre à l'aide de printf. Elle ne retourn rien.
 void afficher_dataframe(CDataframe *dataframe) {
     // Parcours de chaque colonne du CDataframe
     for (int i = 0; i < dataframe->nb_colonnes; i++) {
@@ -100,7 +107,7 @@ void afficher_dataframe(CDataframe *dataframe) {
         printf("\n"); // Ligne vide
     }
 }
-
+//Cette fonction sert à afficher la ligne d'un dataframe mis en paramètre. Elle ne retourne rien.
 void afficher_dataframe_partiel_ligne(CDataframe *dataframe){
     int taille;
     printf("Pour chaque colonne, combien de ligne faut-il afficher ? : ");
@@ -115,7 +122,7 @@ void afficher_dataframe_partiel_ligne(CDataframe *dataframe){
         printf("\n"); // Ligne vide entre les colonnes pour la lisibilité
     }
 }
-
+//Cette fonction sert à afficher une colonne d'un dataframe mis en paramètre. Elle ne retourne rien.
 void afficher_dataframe_partiel_colonne(CDataframe *dataframe){
     int taille;
     printf("Combien de colonne faut-il afficher ? : ");
@@ -130,6 +137,9 @@ void afficher_dataframe_partiel_colonne(CDataframe *dataframe){
         printf("\n"); // Ligne vide entre les colonnes pour la lisibilité
     }
 }
+//Cette fonction sert à ajouter une ligne au dataframe mis en paramètre, au numéro de ligne donné aussi en paramètre.
+// Elle ne retourne rien.
+
 void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
     if (dataframe->nb_colonnes > 0 && ligne != NULL) {
         for (int i = 0; i < dataframe->nb_colonnes; i++) {
@@ -141,7 +151,8 @@ void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne) {
 }
 
 
-
+//Cette fonction permet de supprimer une ligne donnée en paramètre du dataframe mis aussi en paramètre. Elle ne retourne
+//rien.
 void supprimer_ligne(CDataframe *dataframe, int indice_ligne) {
     // Vérifier si l'indice de la ligne est valide
     // et si l'indice de la ligne est valide pour la colonne ayant la taille logique maximale
@@ -161,6 +172,8 @@ void supprimer_ligne(CDataframe *dataframe, int indice_ligne) {
         supprimer_valeur(dataframe, i, indice_ligne);
     }
 }
+//Cette fonction sert à ajouter une colonne au dataframe mis en paramètre, au numéro de colonne donné aussi en paramètre.
+// Elle ne retourne rien.
 void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre) {
     // Vérifier si l'indice de la colonne est valide
     if (indice_colonne < 0 || indice_colonne > dataframe->nb_colonnes) {
@@ -181,6 +194,8 @@ void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre) {
 
     dataframe->nb_colonnes++; // Incrémenter le nombre de colonnes dans le CDataframe
 }
+//Cette fonction sert à supprimer une colonne au dataframe mis en paramètre, au numéro de colonne donné aussi en paramètre.
+// Elle ne retourne rien.
 void supprime_colonne_du_dataframe(CDataframe *dataframe, int indice_colonne) {
     // Vérifier si l'indice de la colonne est valide
     if (indice_colonne < 0 || indice_colonne >= dataframe->nb_colonnes) {
@@ -200,6 +215,8 @@ void supprime_colonne_du_dataframe(CDataframe *dataframe, int indice_colonne) {
     dataframe->colonnes = realloc(dataframe->colonnes, (dataframe->nb_colonnes - 1) * sizeof(COLUMN *));
     dataframe->nb_colonnes--; // Ceci décrémente le nombre de colonnes dans le CDataframe
 }
+//Cette fonction sert à renommer une colonne au dataframe mis en paramètre, au numéro de colonne donné aussi en paramètre.
+// Elle ne retourne rien.
 void renommer_colonne(CDataframe *dataframe, int indice_colonne, char *nouveau_titre) {
     // Vérifie si l'indice de la colonne est valide
     if (indice_colonne < 0 || indice_colonne >= dataframe->nb_colonnes) {
@@ -215,7 +232,7 @@ void renommer_colonne(CDataframe *dataframe, int indice_colonne, char *nouveau_t
 
 }
 
-
+//Cette fonction permet de vérifier si une valeur donnée en paramètre est dans une des cellules du dataframe aussi en paramètre.
 bool check_value_existing(CDataframe *dataframe, int valeur) {
     // Parcoure toutes les colonnes du CDataframe
     for (int i = 0; i < dataframe->nb_colonnes; i++) {
@@ -230,7 +247,8 @@ bool check_value_existing(CDataframe *dataframe, int valeur) {
     }
     return false; // Sinon renvoit faux
 }
-
+//Cette fonction permet de modifier la valeur d'une cellule dans le dataframe donné en paramètre grâce au numéro de ligne,
+//de colonnes de l'ancienne valeur et la nouvelle valeur en question, tous donnés paramètres. Elle ne retourne rien.
 void modifier_valeur_cellule(CDataframe *dataframe, int indice_ligne, int indice_colonne, int nouvelle_valeur) {
     if (indice_ligne < 0) {
         printf("Indice de ligne invalide\n");
@@ -251,20 +269,21 @@ void modifier_valeur_cellule(CDataframe *dataframe, int indice_ligne, int indice
     // Remplace la valeur
     colonne->donnees[indice_ligne] = nouvelle_valeur;
 }
-
+//Cette fonction sert à afficher les noms de chaque colonne d'un dataframe mis en paramètre. Elle ne retourne rien.
 void afficher_noms_colonnes(CDataframe *dataframe) {
     printf("Noms des colonnes :\n");
     for (int i = 0; i < dataframe->nb_colonnes; i++) {
         printf("Colonne numéro %d: %s\n", i + 1, dataframe->colonnes[i]->titre);
     }
 }
-//4.1
+//Cette fonction sert à afficher le nombre de colonne d'un dataframe donné en paramètre. Et retourne ce nombre.
 int print_number_column(CDataframe *dataframe){
     int number_column;
     number_column = dataframe->nb_colonnes;
     printf("Notre dataframe contient %d colonnes", number_column);
+    return number_column;
 }
-
+//Cette fonction sert à afficher le nombre de ligne d'un dataframe donné en paramètre. Et retourne ce nombre.
 int nombre_lignes(CDataframe *dataframe) {
     COLUMN *colonne_max = colonne_taille_max(dataframe); // Obtenir la colonne avec la taille logique maximale
 
@@ -276,7 +295,7 @@ int nombre_lignes(CDataframe *dataframe) {
     // Retourner la taille logique de la colonne avec la taille maximale
     return colonne_max->taille_logique;
 }
-
+//Cette fonction affiche le nombre d'occurence d'une valeur x dans un dataframe mis en paramètre. Elle ne retourne rien.
 void occurence_x_in_dataframe(CDataframe *dataframe) {
     printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");
     int x;
@@ -294,6 +313,7 @@ void occurence_x_in_dataframe(CDataframe *dataframe) {
     }
     printf("%d apparait %d fois dans le dataframe.", x,cpt);
 }
+//Cette fonction affiche le nombre d'occurence des valeurs supérieurs à x dans un dataframe mis en paramètre. Elle ne retourne rien.
 
 void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe) {
     printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");
@@ -312,6 +332,7 @@ void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe) {
     }
     printf("Il y a %d valeurs supérieur à %d dans le dataframe.", cpt,x);
 }
+//Cette fonction affiche le nombre d'occurence des valeurs inférieurs à x dans un dataframe mis en paramètre. Elle ne retourne rien.
 
 void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe) {
     printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");

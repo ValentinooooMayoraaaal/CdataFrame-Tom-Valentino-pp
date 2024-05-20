@@ -49,5 +49,7 @@ void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe);
 
 void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe);
 
+int search_value_in_column(COLUMN *col, void *val);
+
 
 #endif //CDATAFRAME_TOM_VALENTINO_PP_CDATAFRAME_H

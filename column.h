@@ -56,4 +56,6 @@ void erase_index(COLUMN *col);
 
 int check_index(COLUMN *col);
 
+void print_col_by_index(COLUMN *col);
+
 #endif //CDATAFRAME_TOM_VALENTINO_PP_COLUMN_H

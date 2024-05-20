@@ -351,3 +351,42 @@ void occurence_number_inf_to_x_in_dataframe(CDataframe *dataframe) {
     }
     printf("Il y a %d valeurs inférieur à %d dans le dataframe.", cpt,x);
 }
+
+int search_value_in_column(COLUMN *col, void *val) {
+    if (col->valid_index != 1) {
+        // La colonne n'est pas triée
+        return -1;
+    }
+
+    int value = *(int *)val; // Convertir le pointeur de valeur en entier
+    int gauche = 0;
+    int droite = col->taille_logique - 1;
+
+    while (gauche <= droite) {
+        int milieu = gauche + (droite - gauche) / 2;
+        int index_milieu = col->index[milieu];
+        int valeur_milieu = col->donnees[index_milieu];
+
+        if (valeur_milieu == value) {
+            return 1; // Valeur trouvée
+        }
+
+        if (col->sort_dir == 0) {
+            // Tri croissant
+            if (valeur_milieu < value) {
+                gauche = milieu + 1;
+            } else {
+                droite = milieu - 1;
+            }
+        } else {
+            // Tri décroissant
+            if (valeur_milieu > value) {
+                gauche = milieu + 1;
+            } else {
+                droite = milieu - 1;
+            }
+        }
+    }
+
+    return 0; // Valeur non trouvée
+}

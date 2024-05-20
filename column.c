@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "sort.h"
 #include "column.h"
 #include "cdataframe.h"
 
@@ -179,4 +180,13 @@ int check_index(COLUMN *col){
         return -1;
     }
 }
+
+void update_index(COLUMN *col) {
+    if (col == NULL) {
+        printf("Colonne non initialisée.\n");
+        return;
+    }
+    sort(col, col->sort_dir);
+}
+
 

@@ -158,3 +158,4 @@ void print_col_by_index(COLUMN *col){
         printf("Valeur : %d\n", col->donnees[col->index[i]]);
     }
 }
+

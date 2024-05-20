@@ -157,4 +157,26 @@ COLUMN *colonne_taille_max(CDataframe *dataframe) {
     }
     return colonne_max;
 }
+void erase_index(COLUMN *col){
+    printf("Nous procedons a la suppression du tableau index dans la colonne saisie ?\n");
+    free(col->index);
+    col->index = NULL;
+    col->valid_index=0;
+    printf("La suppression a ete effectuee avec succes.\n");
+}
+
+int check_index(COLUMN *col){
+    if(col->index == NULL){
+        printf("La colonne ne possede pas d'index.\n");
+        return 0;
+    }
+    if(col->index != NULL && col->valid_index ==1) {
+        printf("La colonne possede un index trie.\n");
+        return 1;
+    }
+    if(col->index !=NULL && (col->valid_index ==-1||col->valid_index==0)){
+        printf("La colonne possede un index mal trie.\n");
+        return -1;
+    }
+}
 

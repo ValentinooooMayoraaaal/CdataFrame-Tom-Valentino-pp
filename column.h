@@ -52,4 +52,8 @@ void supprimer_valeur(CDataframe *dataframe, int indice_colonne, int indice_vale
 
 COLUMN *colonne_taille_max(CDataframe *dataframe);
 
+void erase_index(COLUMN *col);
+
+int check_index(COLUMN *col);
+
 #endif //CDATAFRAME_TOM_VALENTINO_PP_COLUMN_H

@@ -247,8 +247,7 @@ bool check_value_existing(CDataframe *dataframe, int valeur) {
     }
     return false; // Sinon renvoit faux
 }
-//Cette fonction permet de modifier la valeur d'une cellule dans le dataframe donné en paramètre grâce au numéro de ligne,
-//de colonnes de l'ancienne valeur et la nouvelle valeur en question, tous donnés paramètres. Elle ne retourne rien.
+
 void modifier_valeur_cellule(CDataframe *dataframe, int indice_ligne, int indice_colonne, int nouvelle_valeur) {
     if (indice_ligne < 0) {
         printf("Indice de ligne invalide\n");
@@ -276,14 +275,14 @@ void afficher_noms_colonnes(CDataframe *dataframe) {
         printf("Colonne numéro %d: %s\n", i + 1, dataframe->colonnes[i]->titre);
     }
 }
-//Cette fonction sert à afficher le nombre de colonne d'un dataframe donné en paramètre. Et retourne ce nombre.
+
 int print_number_column(CDataframe *dataframe){
     int number_column;
     number_column = dataframe->nb_colonnes;
     printf("Notre dataframe contient %d colonnes", number_column);
     return number_column;
 }
-//Cette fonction sert à afficher le nombre de ligne d'un dataframe donné en paramètre. Et retourne ce nombre.
+
 int nombre_lignes(CDataframe *dataframe) {
     COLUMN *colonne_max = colonne_taille_max(dataframe); // Obtenir la colonne avec la taille logique maximale
 
@@ -313,7 +312,6 @@ void occurence_x_in_dataframe(CDataframe *dataframe) {
     }
     printf("%d apparait %d fois dans le dataframe.", x,cpt);
 }
-//Cette fonction affiche le nombre d'occurence des valeurs supérieurs à x dans un dataframe mis en paramètre. Elle ne retourne rien.
 
 void occurence_number_sup_to_x_in_dataframe(CDataframe *dataframe) {
     printf("Saisissez une valeur x pour avoir son nombre d'occurence dans le dataframes :");

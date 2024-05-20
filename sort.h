@@ -22,3 +22,9 @@ void Quicksort_croissant(COLUMN *col, int gauche, int droite);
 void Quicksort_decroissant(COLUMN *col, int gauche, int droite);
 
 void print_index(COLUMN* col);
+
+int choice_dir();
+
+int choice_column();
+
+void print_col_by_index(COLUMN *col);

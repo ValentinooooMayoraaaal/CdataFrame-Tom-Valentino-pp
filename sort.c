@@ -12,6 +12,29 @@
 //Ce fichier sort.c est composé de toutes les fonctions nécessaires au tri d'une colonne. Elle a été réalisée par Tom Boyer et
 //Valentino Mayoral.
 
+//Fonction qui avait pour but de choisir la colonne à trier mais malgré son fonctionnement et sa justesse syntaxique, elle
+//fait planter le code lors de son éxecution. Cette erreur reste un mystère.
+int choice_column(CDataframe * dataframe){
+    int choice_column;
+    printf("Quelle colonne du dataframe souhaitez vous triez ?\n");
+    scanf("La colonne a trie est la colonne %d", &choice_column);
+    printf("Veuillez patientez.\n");
+    choice_column -=1;
+    return choice_column;
+}
+//FOnction sans paramètre qui a pour but de retourner la valeur de sort_dir qui permet de savoir si le tri doit être
+//croissant ou décroissant.
+int choice_dir(){
+    int sort_dir;
+    printf("Si vous souhaitez trier votre colonne dans l'ordre croisant, tapez 0.\n");
+    printf("Si vous souhaitez trier votre colonne dans l'ordre decroissant, tapez 1.\n");
+    scanf("%d", &sort_dir);
+    while(sort_dir !=0 && sort_dir != 1){
+        printf("Vous devez saisir soit 0 ou 1.");
+        scanf("%d", &sort_dir);
+    }
+    return sort_dir;
+}
 //Sort est une fonction de tri qui fonctionne grâce à deux autres fonction : Quickshort, elle-même qui se sert de Partition.
 //Sort trie différement en fonction de la situation.
 // Il existe 4 situations possibles.
@@ -23,13 +46,12 @@
 void sort(COLUMN* col, int sort_dir) {
     if (sort_dir == 0) {
         if (col->valid_index == 0) {
-            printf("check");
-            printf("algorithme quicksort croissant \n");
+            printf("Application de l'algorithme de tri quicksort croissant \n");
             // Algorithme Quicksort
             Quicksort_croissant(col, 0, col->taille_logique - 1);
         } else if (col->valid_index == -1) {
             // Algorithme de tri par insertion
-            printf("algorithme insertion croissant \n");
+            printf("Application de l'algorithme de tri algorithme insertion croissant \n");
             for (int i = 1; i < col->taille_logique; i++) {
                 int k = col->index[i];
                 int j = i - 1;
@@ -42,12 +64,12 @@ void sort(COLUMN* col, int sort_dir) {
         }
     } else if(sort_dir == 1){
         if (col->valid_index == 0) {
-            printf("algorithme quicksort decroissant \n");
+            printf("Application de l'algorithme de tri algorithme quicksort decroissant \n");
             // Algorithme Quicksort
             Quicksort_decroissant(col, 0, col->taille_logique - 1);
         } else if (col->valid_index == -1) {
             // Algorithme de tri par insertion
-            printf("algorithme insertion decroissant \n");
+            printf("Application de l'algorithme de tri algorithme insertion decroissant \n");
             for (int i = 1; i < col->taille_logique; i++) {
                 int k = col->index[i];
                 int j = i - 1;
@@ -126,5 +148,13 @@ void Quicksort_decroissant(COLUMN *col, int gauche, int droite) {
 void print_index(COLUMN* col){
     for(int i=0; i < col->taille_logique; i++){
         printf("[%d] %d\n",i,col->index[i]);
+    }
+}
+
+void print_col_by_index(COLUMN *col){
+    int i;
+    printf("Voici le resultat de votre tableau trie : \n");
+    for(i=0;i<col->taille_logique;i++){
+        printf("Valeur : %d\n", col->donnees[col->index[i]]);
     }
 }

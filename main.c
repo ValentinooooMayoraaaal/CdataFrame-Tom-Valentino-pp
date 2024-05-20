@@ -22,11 +22,11 @@ int main(){
 
     remplir_dataframe(dataframe);
 
-    print_index(dataframe->colonnes[0]);
+    int sort_dir = choice_dir();
 
-    sort(dataframe->colonnes[0],0);
-    print_index(dataframe->colonnes[0]);
-    afficher_dataframe(dataframe);
+    sort(dataframe->colonnes[0],sort_dir);
+
+    print_col_by_index(dataframe->colonnes[0]);
 
     return 0;
 }

@@ -29,6 +29,8 @@ void afficher_dataframe_partiel_ligne(CDataframe *dataframe);
 
 void afficher_dataframe_partiel_colonne(CDataframe *dataframe);
 
+void ajouter_ligne_Cdataframe(CDataframe *dataframe, int *ligne);
+
 void supprimer_ligne(CDataframe *dataframe, int indice_ligne);
 
 void ajouter_colonne(CDataframe *dataframe, int indice_colonne, char *titre);
@@ -40,7 +42,7 @@ void renommer_colonne(CDataframe *dataframe, int indice_colonne, char *nouveau_t
 bool check_value_existing(CDataframe *dataframe, int valeur);
 
 void modifier_valeur_cellule(CDataframe *dataframe, int indice_ligne, int indice_colonne, int nouvelle_valeur);
-//4.1
+
 int print_number_column(CDataframe *dataframe);
 
 void occurence_x_in_dataframe(CDataframe *dataframe);

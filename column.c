@@ -2,13 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "sort.h"
 #include "column.h"
 #include "cdataframe.h"
 
 //Ce fichier column.c est composé de toutes les fonctions qui touchent à l'utilisation de colonnes. Elle a été réalisée par Tom Boyer et
 //Valentino Mayoral.
 
-//Cette fonction créer une colonne avec comme paramètre son titre. Elle initialise en dur ses composantes. Elle retourne la colonne créé.
+
 COLUMN *create_column(char *title) {
     COLUMN *col = (COLUMN*)malloc(sizeof(COLUMN));
 
@@ -26,8 +27,7 @@ COLUMN *create_column(char *title) {
 
     return col;
 }
-//CEtte fonction sert à ajouter une valeur données en paramètre dans une colonne mise en paramètre. Elle retourne la valeur 1
-//si l'insertion a réussie.
+
 int insert_value(COLUMN *colonne, int valeur) {
     // Vérifier si une allocation est nécessaire dans le cas ou la colonne est vide ou pleine
     if(colonne->taille_physique == 0){
@@ -46,11 +46,11 @@ int insert_value(COLUMN *colonne, int valeur) {
     }
     return 1; //succes de l'insertion de la valeur dans la colonne
 }
-//Cette fonction sert à vider une colonne mise en paramètre. Elle retourne rien.
+
 void delete_column(COLUMN **col){
     free(col);
 }
-//Cette fonction sert à afficher le contenu d'une colonne mise en paramètre. Elle ne retourne rien.
+
 void print_col(COLUMN* col){
     if(col->donnees!=NULL){
         for(int i=0; i < col->taille_logique; i++){
@@ -59,8 +59,7 @@ void print_col(COLUMN* col){
         }
     }
 }
-//Cette fonction sert à afficher puis retourner le nombre d'occurence d'une valeur mise en paramètre dans une colonne
-//mise en paramètre.
+
 int x_occurence(COLUMN* col, int x){
     int cpt = 0;
     for(int i = 0; i<col->taille_logique; i++){
@@ -71,8 +70,7 @@ int x_occurence(COLUMN* col, int x){
     printf("La valeur saisie est présente %d fois dans la colonne.", cpt);
     return cpt;
 }
-//Cette fonction sert à donné la valeur situé à la position données en paramètre dans la colonne donnée en paramètre.
-//Nous lui avons rien fait retourner.
+
 int value_on_x_position(COLUMN* col, int x){
     if(col->taille_physique > x && x>=0){
         printf("La valeur à la %dème position est %d.", x, col->donnees[x-1]);
@@ -82,8 +80,7 @@ int value_on_x_position(COLUMN* col, int x){
         printf("La position %d n'existe pas dans la colonne.");
     }
 }
-//Cette fonction sert à afficher et retourner le nombre de valeur supérieur à un nombre donné en paramètre dans une colonne
-//donnée en paramètre.
+
 int number_sup_to_x(COLUMN* col, int x){
     int cpt = 0;
     for(int i=0; i<col->taille_logique; i++){
@@ -94,8 +91,7 @@ int number_sup_to_x(COLUMN* col, int x){
     printf("Il y a %d valeurs supérieures à %d dans la colonne.", cpt,x);
     return cpt;
 }
-//Cette fonction sert à afficher et retourner le nombre de valeur inférieur à un nombre donné en paramètre dans une colonne
-//donnée en paramètre.
+
 int number_inf_to_x(COLUMN* col, int x){
     int cpt = 0;
     for(int i=0; i<col->taille_logique; i++){
@@ -179,4 +175,13 @@ int check_index(COLUMN *col){
         return -1;
     }
 }
+
+void update_index(COLUMN *col) {
+    if (col == NULL) {
+        printf("Colonne non initialisée.\n");
+        return;
+    }
+    sort(col, col->sort_dir);
+}
+
 
